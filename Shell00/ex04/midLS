@@ -1,3 +1,9 @@
 #!/bin/sh
 
 ls -pmtU
+
+ls -mtUpr
+
+ls -mtUp
+
+ls -mpU

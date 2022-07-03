@@ -1,1 +1,15 @@
+#!/bin/sh
+
 find . -type f -name "#*#" -o -name "*~" | xargs -I {} rm -v "{}"
+
+find . \( -name "*~" -o -name "#*#" \) -delete -print
+
+find . -type f -name '*~' -print -delete -or -type f -name '#*#' -print -delete
+
+find . -type f \( -name "*~" -o -name "#*#" \) -print -delete
+
+find . -name "*~" -type f -print -delete -or -name "#*#" -print -delete -type f
+
+find -E  . -type f -regex '.*\~$|.*\/\#.*\#$'  -print  -exec rm -f {} \;
+
+find . -type f \( -name "*~" -o -name "#*#" \) -print -delete
