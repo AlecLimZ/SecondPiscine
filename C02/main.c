@@ -6,19 +6,24 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:25:33 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/08/02 20:31:04 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/08/03 21:48:42 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "two.h"
+#include <string.h>
 
 int main(void)
 {
-	char a[5];
+	char	dest1[3] = "ab";
+//	char	dest2[3] = "lo";
+	char	src1[20] = "hello";
+//	char	src2[20] = "hello";
+//	dest2[2] = '\0';
 
-	int i = 0;
-	while (i < 4)
-		a[i++] = 'a';
-	a[i] = '\0';
-	printf("%s\n", a);
+	ft_strcpy(dest1, src1);
+	printf("1:%s\n", dest1);
+//	strcpy(dest2, src2);
+//	printf("2:%s\n", dest2);
+	return (0);
 }

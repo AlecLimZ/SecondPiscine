@@ -6,8 +6,20 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:42:50 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/08/02 20:42:53 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/08/03 21:31:48 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	i;
 
+	i = 0;
+	while (src[i] && dest[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
