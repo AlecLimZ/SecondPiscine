@@ -6,15 +6,16 @@
 /*   By: leng-chu <leng-chu@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/08/03 21:18:38 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:25:51 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TWO_H
 # define TWO_H
 
-#include <stdio.h>
-#include <unistd.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 char			*ft_strcpy(char *dest, char *src);
 char			*ft_strncpy(char *dest, char *src, unsigned int n);
@@ -29,5 +30,8 @@ char			*ft_strcapitalize(char *str);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
 void			ft_putstr_non_printable(char *str);
 void			*ft_print_memory(void *addr, unsigned int size);
+int				ft_strlen(char *s);
+int				ft_isuppercase(char c);
+int				ft_islowercase(char c);
 
 #endif
