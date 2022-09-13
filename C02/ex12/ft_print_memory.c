@@ -6,75 +6,95 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:12:56 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/09/12 18:06:42 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:42:53 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "two.h"
 
-# define MAX_PAGE_SIZE 14
-
-void	ft_buffer_number(int number, int radix, int buffer[], int index)
+void	ft_putchar(char ch)
 {
-	if (number > radix - 1)
-		ft_buffer_number(number / radix, radix, buffer, index + 1);
-	buffer[index] = number % radix;
+	write(1, &ch, 1);
 }
 
-void	ft_write_hex(unsigned int number, int radix, int char_count)
+void	ft_address(unsigned long long addr, unsigned int cnt, char *hex)
 {
-	int	buffer[MAX_PAGE_SIZE + 1];
-	int	index;
-
-	index = -1;
-	while (index++ < MAX_PAGE_SIZE)
-		buffer[index] = 0;
-	ft_buffer_number(number, radix, buffer, 0);
-	index = -1;
-	while (index++ < char_count)
-		write(1, &"0123456789abcedgh"[buffer[char_count - index]], 1);
-}
-
-void	ft_write_safe_char(char *c)
-{
-	if (*c >= ' ' && *c != 127)
-		write(1, c, 1);
-	else
-		write(1, &".", 1);
-}
-
-void	ft_print_memory_at(void *start_addr, unsigned int size, char *curr_addr)
-{
-	int	index;
-
-	ft_write_hex((unsigned int)curr_addr, 16, MAX_PAGE_SIZE);
-	write(1, &": ", 2);
-	index = 0;
-	while (index++ < 16)
+	if (addr != 0)
 	{
-		if (start_addr + size <= (void*)(curr_addr + index - 1))
-			write(1, &" ", 2);
-		else
-			ft_write_hex((unsigned char)*(curr_addr + index - 1), 16, 1);
-		if (index % 2 == 0)
-			write(1, &" ", 1);
+		ft_address(addr / 16, cnt + 1, hex);
+		ft_putchar(hex[addr % 16]);
 	}
-	index = 0;
-	while (index++ < 16)
-		if (start_addr + size > (void *)(curr_addr + index - 1))
-			ft_write_safe_char((char *)curr_addr + index - 1);
+	else
+	{
+		while (cnt < 16)
+		{
+			ft_putchar('0');
+			cnt++;
+		}
+	}
+}
+
+void	ft_hex2(unsigned char *addr, unsigned int size, char *hex)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (i % 2 == 0)
+			ft_putchar(' ');
+		ft_putchar(hex[addr[i] / 16]);
+		ft_putchar(hex[addr[i] % 16]);
+		i++;
+	}
+	while (i < 16)
+	{
+		if (i % 2 == 0)
+			ft_putchar(' ');
+		write(1, " ", 2);
+		i++;
+	}
+}
+
+void	ft_str(unsigned char *addr, unsigned int size, char *str)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (addr[i] >= ' ' && addr[i] <= '~')
+			str[i] = addr[i];
+		else
+			str[i] = '.';
+		ft_putchar(str[i]);
+		i++;
+	}
 }
 
 void	*ft_print_memory(void *addr, unsigned int size)
 {
-	char	*curr_addr;
+	unsigned int	i;
+	char			*hex;
+	unsigned int	tmp;
+	char			str[16];
 
-	curr_addr = (char*)addr;
-	while ((void*)curr_addr < (addr + size))
+	i = 0;
+	hex = "0123456789abcdef";
+	while (size > 0)
 	{
-		ft_print_memory_at(addr, size, curr_addr);
-		write(1, &"\n", 1);
-		curr_addr += 16;
+		if (size > 16)
+			tmp = 16;
+		else
+			tmp = size;
+		ft_address((unsigned long long)addr + i, 0, hex);
+		ft_putchar(':');
+		ft_hex2((unsigned char *)addr + i, tmp, hex);
+		ft_putchar(' ');
+		ft_str((unsigned char *)addr + i, tmp, str);
+		ft_putchar('\n');
+		size -= tmp;
+		i += 16;
 	}
 	return (addr);
 }

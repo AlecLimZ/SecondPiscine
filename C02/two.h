@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:12:24 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/08/18 19:01:52 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:43:25 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ int				ft_strlen(char *s);
 int				ft_isuppercase(char c);
 int				ft_islowercase(char c);
 
-void			ft_hex2(int n);
+void    ft_hex2(unsigned char *addr, unsigned int size, char *hex);
 #endif
