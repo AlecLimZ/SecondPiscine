@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 14:37:20 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/10/31 17:13:33 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/10/31 18:20:45 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ typedef struct s_hdump
 	int		error;
 	int		fd;
 	int		ret;
+	int		ret2;
+	int		ret3;
+	int		count;
 	char	buf[BSIZE + 1];
+	char	buf2[BSIZE + 1];
+	char	buf3[BSIZE + 1];
 	char	*first;
 	char	w[33];
 }	t_hdump;
@@ -55,6 +60,7 @@ void	ft_init(t_hdump *h, char **av);
 int		ft_error(int fd, char *s);
 int		ft_reterror(int fd, char *s);
 int		ft_illegal(char *n);
+int		ft_argerror(int fd, char *s, char *m);
 
 // function.c
 void	ft_addspace(int c);

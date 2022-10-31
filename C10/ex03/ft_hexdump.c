@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:09:25 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/10/31 17:17:41 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/10/31 18:37:52 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,46 @@ void	ft_finale(t_hdump *h)
 	free(h->first);
 }
 
+int	ft_open(t_hdump *h)
+{
+	h->fd = open(h->args[h->p], O_RDONLY);
+	if (h->fd == -1)
+		return (ft_error(2, "Failed open file\n"));
+	ft_putstr_fd(1, h->first);
+	return (0);
+}
+
+int	ft_loopread(t_hdump *h)
+{
+	while (h->ret && h->ret2)
+	{
+		h->ret = read(h->fd, h->buf, BSIZE);
+		h->ret2 = read(h->fd, h->buf2, BSIZE);
+		h->ret3 = read(h->fd, h->buf3, BSIZE);
+		if (h->ret == -1 || h->ret2 == -1 || h->ret3 == -1)
+			return (ft_reterror(2, "Failing read a file\n"));
+		h->buf[h->ret] = '\0';
+		h->buf2[h->ret2] = '\0';
+		h->buf3[h->ret3] = '\0';
+		ft_addspace(h->c);
+		ft_hex(h->buf, h);
+		ft_addspace(h->c);
+		ft_hex(h->buf2, h);
+		if (!h->ret3)
+			break ;
+		ft_addspace(h->c);
+		ft_hex(h->buf3, h);
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_hdump		h;
 
 	ft_init(&h, av);
-	if (ft_parser(ac, &h))
+	if (ft_parser(ac, &h) || ft_open(&h) || ft_loopread(&h))
 		return (1);
-	h.fd = open(av[h.p], O_RDONLY | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (h.fd == -1)
-		return (ft_error(2, "Failed open file\n"));
-	h.ret = 1;
-	ft_putstr_fd(1, h.first);
-	while (h.ret)
-	{
-		h.ret = read(h.fd, h.buf, BSIZE);
-		if (h.ret == -1)
-			return (ft_reterror(2, "Failing read a file\n"));
-		h.buf[h.ret] = '\0';
-		if (!h.ret)
-			break ;
-		ft_addspace(h.c);
-		ft_hex(h.buf, &h);
-	}
 	ft_finale(&h);
 	return (errno);
 }

@@ -6,13 +6,13 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 17:08:49 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/10/31 17:22:35 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/10/31 18:29:14 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hex.h"
 
-void	ft_firsthex(t_hdump *h, int count)
+static void	ft_firsthex(t_hdump *h, int count)
 {
 	char const		hex[16] = "0123456789abcdef";
 	int				nb;
@@ -35,7 +35,7 @@ void	ft_firsthex(t_hdump *h, int count)
 	}
 }
 
-void	ft_last(t_hdump *h)
+static void	ft_last(char *s)
 {
 	char	*new;
 	int		i;
@@ -43,14 +43,15 @@ void	ft_last(t_hdump *h)
 
 	i = -1;
 	p = 0;
-	new = (char *)malloc(sizeof(char) * (ft_strlen(h->buf) + 2 + 1));
+	(void)s;
+	new = (char *)malloc(sizeof(char) * (ft_strlen(s) + 2 + 1));
 	new[p++] = '|';
-	while (h->buf[++i])
+	while (s[++i])
 	{
-		if (h->buf[i] == '\t' || h->buf[i] == '\n')
+		if (s[i] == '\t' || s[i] == '\n')
 			new[p++] = '.';
 		else
-			new[p++] = h->buf[i];
+			new[p++] = s[i];
 	}
 	new[p++] = '|';
 	new[p] = '\0';
@@ -58,7 +59,7 @@ void	ft_last(t_hdump *h)
 	free(new);
 }
 
-void	ft_w(char *w, t_hdump *h)
+static void	ft_w(char *w, t_hdump *h, char *s)
 {
 	int		i;
 
@@ -74,17 +75,22 @@ void	ft_w(char *w, t_hdump *h)
 	if (h->c)
 	{
 		ft_addspace(h->c);
-		ft_last(h);
+		ft_last(s);
 	}
 	write(1, "\n", 1);
 }
 
-void	ft_hex2(int k, int count, t_hdump *h)
+static void	ft_hex2(int k, int count, t_hdump *h, char *s)
 {
 	while (k < BSIZE * 2)
 		h->w[k++] = ' ';
 	h->w[k] = '\0';
-	ft_w(h->w, h);
+	ft_w(h->w, h, s);
+	if ((h->buf3[0] == '\n' || h->buf3[0] == '\0') && h->error == 1)
+	{
+		ft_argerror(2, h->args[2], "No such file or directory\n");
+		h->error = 0;
+	}
 	if (count)
 	{
 		ft_firsthex(h, count);
@@ -95,7 +101,6 @@ void	ft_hex2(int k, int count, t_hdump *h)
 void	ft_hex(char *s, t_hdump *h)
 {
 	char const		hex[16] = "0123456789abcdef";
-	static int		count;
 	int				i;
 	int				k;
 	int				n;
@@ -116,7 +121,7 @@ void	ft_hex(char *s, t_hdump *h)
 			h->w[k + 1] = hex[n];
 		}
 		k += 2;
-		count++;
+		h->count++;
 	}
-	ft_hex2(k, count, h);
+	ft_hex2(k, h->count, h, s);
 }
