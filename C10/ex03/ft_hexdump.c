@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:09:25 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/10/31 16:06:44 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:09:20 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_firsthex(t_hdump *h, int count)
 	}
 }
 
-void	ft_w(char *w)
+void	ft_w(char *w, int c)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ void	ft_w(char *w)
 	{
 		write(1, &w[i], 1);
 		if (i == 15)
-			write(1, "  ", 2);
+			ft_addspace(c);
 		else if (i % 2 != 0)
 			write(1, " ", 1);
 	}
@@ -113,7 +113,7 @@ void	*ft_hex(char *s, t_hdump *h)
 		count++;
 	}
 	w[k] = '\0';
-	ft_w(w);
+	ft_w(w, h->c);
 	if (count)
 	{
 		ft_firsthex(h, count);
