@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 14:37:20 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/10/31 15:51:45 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:46:48 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_hdump
 	int		ret;
 	char	buf[BSIZE + 1];
 	char	*first;
+	char	w[33];
 }	t_hdump;
 
 // utlis.h
