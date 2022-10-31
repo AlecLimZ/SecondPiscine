@@ -6,7 +6,7 @@
 /*   By: leng-chu <leng-chu@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 14:37:20 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/10/31 16:46:48 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:13:33 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		ft_strlen(char *s);
 void	ft_putstr_fd(int fd, char *s);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_strzerochar(t_hdump *h);
+void	ft_init(t_hdump *h, char **av);
 
 // error.c
 int		ft_error(int fd, char *s);
@@ -57,5 +58,8 @@ int		ft_illegal(char *n);
 
 // function.c
 void	ft_addspace(int c);
+
+//hex.c
+void	ft_hex(char *s, t_hdump *h);
 
 #endif

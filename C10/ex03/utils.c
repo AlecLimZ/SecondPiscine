@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:14:08 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/10/31 15:16:34 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:08:00 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ int	ft_strcmp(char *s1, char *s2)
 	if (s1[i] > s2[i])
 		return (1);
 	return (-1);
+}
+
+void	ft_init(t_hdump *h, char **av)
+{
+	h->args = av;
+	h->c = 0;
+	h->fd = -1;
+	h->ret = 1;
+	h->p = 0;
+	h->error = 0;
 }

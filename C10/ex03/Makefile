@@ -1,5 +1,5 @@
 NAME		=	ft_hexdump
-SRC			=	ft_hexdump.c utils.c error.c function.c
+SRC			=	ft_hexdump.c utils.c error.c function.c hex.c
 OBJ			=	$(SRC:%.c=%.o)
 H			=	-I.
 CC			+=	-Wall -Wextra -Werror $(H) -fsanitize=address
