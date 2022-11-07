@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:24:14 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/11/07 13:18:56 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:12:31 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(void)
 {
 	t_btree	*tree;
+	t_btree *key;
 
 	tree = btree_create_node("25");
 	tree->left = btree_create_node("15");
@@ -23,16 +24,13 @@ int	main(void)
 	btree_insert_data(&tree, "105", &ft_strcmpatoi);
 	btree_insert_data(&tree, "70", &ft_strcmpatoi);
 
-	if (tree->right->right)
-		printf("tree's right's right got it: %s\n", tree->right->right->item);
-	if (tree->right->left)
-		printf("tree's right's left got it: %s\n", tree->right->left->item);
-	if (tree->right->right->right)
-		printf("tree's 3 rights got it: %s\n", tree->right->right->right->item);
-	if (tree->right->right->left)
-		printf("tree's 3 2r 1l got it: %s\n", tree->right->right->left->item);
+	key = btree_search_item(tree, "105", &ft_strcmp);
+	if (key)
+		printf("key item: %s\n", key->item);
+	else
+		printf("it doesn't contain any key\n");
 //	btree_apply_prefix(tree, &printitem);
 //	btree_apply_infix(tree, &printitem);
-	btree_apply_suffix(tree, &printitem);
+//	btree_apply_suffix(tree, &printitem);
 	return (0);
 }

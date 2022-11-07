@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_insert_data.c                                :+:      :+:    :+:   */
+/*   btree_apply_infix.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 18:25:10 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/11/07 13:07:21 by leng-chu         ###   ########.fr       */
+/*   Created: 2022/11/03 18:07:31 by leng-chu          #+#    #+#             */
+/*   Updated: 2022/11/03 18:09:01 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_btree.h"
 
-void	btree_insert_data(t_btree **root, void *item,
-		int (*cmpf)(void *, void *))
+void	btree_apply_infix(t_btree *root, void (*applyf)(void *))
 {
-	t_btree	*r;
-
-	r = *root;
-	if (cmpf(item, r->item) >= 0)
-	{
-		if (r->right == NULL)
-		{
-			r->right = btree_create_node(item);
-			return ;
-		}
-		else
-			btree_insert_data(&r->right, item, cmpf);
-	}
-	else if (r->left == NULL)
-	{
-		r->left = btree_create_node(item);
+	if (!root)
 		return ;
-	}
-	else
-		btree_insert_data(&r->left, item, cmpf);
+	btree_apply_infix(root->left, applyf);
+	applyf(root->item);
+	btree_apply_infix(root->right, applyf);
 }
