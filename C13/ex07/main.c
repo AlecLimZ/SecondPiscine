@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:24:14 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/11/08 13:39:33 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:17:11 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	main(void)
 	btree_insert_data(&tree, "100", &ft_strcmpatoi);
 	btree_insert_data(&tree, "105", &ft_strcmpatoi);
 	btree_insert_data(&tree, "70", &ft_strcmpatoi);
-	btree_apply_by_level(tree, NULL);
+	btree_apply_by_level(tree, &f_test);
+	system("leaks main");
 //	btree_apply_prefix(tree, &printitem);
 //	btree_apply_infix(tree, &printitem);
 //	btree_apply_suffix(tree, &printitem);

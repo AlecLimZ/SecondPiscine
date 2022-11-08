@@ -6,7 +6,7 @@
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:53 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/11/08 13:04:27 by leng-chu         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:28:00 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	*btree_search_item(t_btree *root, void *data_ref,
 			int (*cmpf)(void *, void *));
 int		ft_totalnodes(t_btree *root);
 int		btree_level_count(t_btree *root);
-void	btree_apply_by_level(t_btree *root, void (*applyf)(void *item, int current_level,
-			int is_first));
+void	btree_apply_by_level(t_btree *root, void (*applyf)(void *item,
+				int current_level, int is_first));
+void	f_test(void *item, int current_level, int is_first);
 
 #endif
