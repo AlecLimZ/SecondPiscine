@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_level_count.c                                :+:      :+:    :+:   */
+/*   btree_insert_data.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 16:24:20 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/11/08 12:28:21 by leng-chu         ###   ########.fr       */
+/*   Created: 2022/11/03 18:25:10 by leng-chu          #+#    #+#             */
+/*   Updated: 2022/11/07 13:07:21 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_btree.h"
 
-int	btree_level_count(t_btree *root)
+void	btree_insert_data(t_btree **root, void *item,
+		int (*cmpf)(void *, void *))
 {
-	int	left_side;
-	int	right_side;
+	t_btree	*r;
 
-	if (!root)
-		return (0);
-	left_side = btree_level_count(root->left);
-	right_side = btree_level_count(root->right);
-	if (left_side >= right_side)
-		return (left_side + 1);
-	return (right_side + 1);
+	r = *root;
+	if (cmpf(item, r->item) >= 0)
+	{
+		if (r->right == NULL)
+		{
+			r->right = btree_create_node(item);
+			return ;
+		}
+		else
+			btree_insert_data(&r->right, item, cmpf);
+	}
+	else if (r->left == NULL)
+	{
+		r->left = btree_create_node(item);
+		return ;
+	}
+	else
+		btree_insert_data(&r->left, item, cmpf);
 }

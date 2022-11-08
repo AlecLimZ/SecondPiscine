@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_level_count.c                                :+:      :+:    :+:   */
+/*   btree_apply_infix.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leng-chu <-chu@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 16:24:20 by leng-chu          #+#    #+#             */
-/*   Updated: 2022/11/08 12:28:21 by leng-chu         ###   ########.fr       */
+/*   Created: 2022/11/03 18:07:31 by leng-chu          #+#    #+#             */
+/*   Updated: 2022/11/03 18:09:01 by leng-chu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_btree.h"
 
-int	btree_level_count(t_btree *root)
+void	btree_apply_infix(t_btree *root, void (*applyf)(void *))
 {
-	int	left_side;
-	int	right_side;
-
 	if (!root)
-		return (0);
-	left_side = btree_level_count(root->left);
-	right_side = btree_level_count(root->right);
-	if (left_side >= right_side)
-		return (left_side + 1);
-	return (right_side + 1);
+		return ;
+	btree_apply_infix(root->left, applyf);
+	applyf(root->item);
+	btree_apply_infix(root->right, applyf);
 }
